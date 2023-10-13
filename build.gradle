@@ -43,6 +43,11 @@ repositories {
     // mavenCentral()
     maven {
         url = "https://maven.zontreck.dev/repository/internal"
+        name = "Aria's Creations Caches"
+    }
+
+    maven {
+        url = "https://maven.zontreck.dev/repository/zontreck"
         name = "Aria's Creations"
     }
 }
