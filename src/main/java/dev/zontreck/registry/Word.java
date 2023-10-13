@@ -29,15 +29,6 @@ public class Word extends Entry {
         return super.PrettyPrint(indent) + " [" + Value + "]";
     }
 
-    @Override
-    public void setValue(Object value) {
-        super.setValue(value);
-
-        if (value instanceof String str) {
-            Value = str;
-        }
-    }
-
     public Word setWord(String value) {
         Value = value;
         return this;
