@@ -60,8 +60,8 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:31.1-jre'
 
-    implementation "dev.zontreck.EventsBus:${Bus_API}.${Bus_Patch}"
-    api "dev.zontreck.EventsBus:${Bus_API}.${Bus_Patch}-sources"
+    implementation "dev.zontreck:EventsBus:${Bus_API}.${Bus_Patch}"
+    api "dev.zontreck:EventsBus:${Bus_API}.${Bus_Patch}:sources"
 }
 
 def MAVEN_PASSWORD_PROPERTY = "AriasCreationsMavenPassword"
