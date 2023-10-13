@@ -4,24 +4,24 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class VInt32 extends Entry {
-	public VInt32(String name, int value) {
-		super(EntryType.Int32, name);
+public class VByte extends Entry {
+	public VByte(String name, byte value) {
+		super(EntryType.Byte, name);
 		Parent = null;
 		Value = value;
 	}
 
-	public int Value;
+	public byte Value;
 
 	@Override
 	public void readValue(DataInputStream stream) throws IOException {
-		Value = stream.readInt();
+		Value = stream.readByte();
 	}
 
 	@Override
 	public void Write(DataOutputStream stream) throws IOException {
 		super.Write(stream);
-		stream.writeInt(Value);
+		stream.writeByte(Value);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class VInt32 extends Entry {
 		return super.PrettyPrint(indent) + " [" + Value + "]";
 	}
 
-	public VInt32 setInt32(int value) {
+	public VByte setByte(byte value) {
 		Value = value;
 		return this;
 	}
