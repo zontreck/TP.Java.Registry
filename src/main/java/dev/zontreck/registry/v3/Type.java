@@ -14,7 +14,10 @@ public enum Type {
 	Key(10),
 	IntArray(11),
 	LongArray(12),
-	Boolean(13);
+
+	// HERE STARTS THE NON-STANDARD TAG TYPES SPECIFIC TO THIS LIBRARY
+	Boolean(13),
+	UUID(14);
 
 	byte value;
 
@@ -37,6 +40,7 @@ public enum Type {
 		TagTypeRegistry.RegisterType(IntArray, IntArrayTag.class);
 		TagTypeRegistry.RegisterType(LongArray, LongArrayTag.class);
 		TagTypeRegistry.RegisterType(Boolean, BooleanTag.class);
+		TagTypeRegistry.RegisterType(UUID, UUIDTag.class);
 	}
 
 	public static Type valueOf(byte b) {

@@ -1,6 +1,10 @@
 package dev.zontreck.registry.v3;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public abstract class Tag {
 	public abstract Type getType();
@@ -50,8 +54,7 @@ public abstract class Tag {
 
 	public abstract void ReadValue(DataInputStream dis) throws IOException;
 
-	public byte[] Serialize()
-	{
+	public byte[] Serialize() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try {
@@ -64,8 +67,7 @@ public abstract class Tag {
 		return baos.toByteArray();
 	}
 
-	public static Tag Deserialize(byte[] array)
-	{
+	public static Tag Deserialize(byte[] array) {
 		ByteArrayInputStream bais = new ByteArrayInputStream(array);
 		DataInputStream dis = new DataInputStream(bais);
 		try {
@@ -73,8 +75,7 @@ public abstract class Tag {
 			NTag.ReadValue(dis);
 
 			return NTag;
-		}catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new RuntimeException();
 		}
 	}
@@ -168,6 +169,13 @@ public abstract class Tag {
 			return lat;
 		else
 			return new LongArrayTag();
+	}
+
+	public UUIDTag asUUID() {
+		if (this instanceof UUIDTag ut)
+			return ut;
+		else
+			return new UUIDTag();
 	}
 
 }
