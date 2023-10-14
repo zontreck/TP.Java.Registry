@@ -16,6 +16,11 @@ public class ShortTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Short;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Short";
 	}

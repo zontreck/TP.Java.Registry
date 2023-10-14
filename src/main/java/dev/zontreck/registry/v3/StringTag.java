@@ -16,6 +16,11 @@ public class StringTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.String;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_String";
 	}

@@ -16,6 +16,11 @@ public class IntTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Int;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Int";
 	}

@@ -16,6 +16,11 @@ public class DoubleTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Double;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Double";
 	}

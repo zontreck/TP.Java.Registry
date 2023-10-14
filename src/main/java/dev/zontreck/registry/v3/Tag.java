@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class Tag {
-	public Type type = Type.End;
+	public abstract Type getType();
 
 	public static String MakeIndent(int indent) {
 		String builder = "";
@@ -27,7 +27,7 @@ public abstract class Tag {
 	}
 
 	public void Write(DataOutputStream dos) throws IOException {
-		dos.writeByte(type.value);
+		dos.writeByte(getType().value);
 	}
 
 	public abstract void WriteValue(DataOutputStream dos) throws IOException;
@@ -46,20 +46,7 @@ public abstract class Tag {
 	 */
 	public static Tag Read(DataInputStream dis) throws IOException {
 		Type type = Type.valueOf(dis.readByte());
-		Class<? extends Tag> base = TagTypeRegistry.getByType(type);
-		try {
-			Tag instance = base.getConstructor().newInstance();
-
-			return instance;
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException(e);
-		}
+		return TagTypeRegistry.getInstanceOf(type);
 	}
 
 	public abstract void ReadValue(DataInputStream dis) throws IOException;

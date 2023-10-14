@@ -24,6 +24,11 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.ByteArray;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_ByteArray";
 	}

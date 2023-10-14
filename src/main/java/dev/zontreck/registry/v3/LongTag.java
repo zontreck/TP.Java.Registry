@@ -16,6 +16,11 @@ public class LongTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Long;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Long";
 	}

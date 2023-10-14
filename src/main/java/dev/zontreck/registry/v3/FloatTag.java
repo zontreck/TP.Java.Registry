@@ -16,6 +16,11 @@ public class FloatTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Float;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Float";
 	}

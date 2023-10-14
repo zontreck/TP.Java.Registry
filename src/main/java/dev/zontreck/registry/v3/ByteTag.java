@@ -16,6 +16,11 @@ public class ByteTag extends Tag {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.Byte;
+	}
+
+	@Override
 	public String getCanonicalName() {
 		return "TAG_Byte";
 	}
