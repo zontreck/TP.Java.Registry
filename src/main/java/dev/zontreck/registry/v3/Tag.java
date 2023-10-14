@@ -106,4 +106,11 @@ public abstract class Tag {
 			return new FloatTag();
 	}
 
+	public DoubleTag asDouble() {
+		if (this instanceof DoubleTag dt)
+			return dt;
+		else
+			return new DoubleTag();
+	}
+
 }
