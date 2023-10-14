@@ -21,7 +21,7 @@ public abstract class Tag {
 	public String PrettyPrint(int indent, String name) {
 		String builder = "";
 		builder += MakeIndent(indent) + getCanonicalName();
-		if(name != "")
+		if (name != "")
 			builder += " [" + name + "]";
 
 		return builder;
@@ -127,6 +127,13 @@ public abstract class Tag {
 			return iat;
 		else
 			return new IntArrayTag();
+	}
+
+	public BooleanTag asBoolean() {
+		if (this instanceof BooleanTag bt)
+			return bt;
+		else
+			return new BooleanTag();
 	}
 
 }

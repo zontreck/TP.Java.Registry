@@ -13,7 +13,8 @@ public enum Type {
 	List(9),
 	Key(10),
 	IntArray(11),
-	LongArray(12);
+	LongArray(12),
+	Boolean(13);
 
 	byte value;
 
