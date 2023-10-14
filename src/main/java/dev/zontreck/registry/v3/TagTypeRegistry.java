@@ -17,8 +17,7 @@ public class TagTypeRegistry {
 		return null;
 	}
 
-	public static Tag getInstanceOf(Type type)
-	{
+	public static Tag getInstanceOf(Type type) {
 
 		Class<? extends Tag> base = TagTypeRegistry.getByType(type);
 		try {

@@ -22,6 +22,7 @@ public enum Type {
 	}
 
 	public static void PerformRegister() {
+		TagTypeRegistry.RegisterType(End, EndTag.class);
 		TagTypeRegistry.RegisterType(String, StringTag.class);
 		TagTypeRegistry.RegisterType(Byte, ByteTag.class);
 		TagTypeRegistry.RegisterType(Short, ShortTag.class);
@@ -30,6 +31,8 @@ public enum Type {
 		TagTypeRegistry.RegisterType(Float, FloatTag.class);
 		TagTypeRegistry.RegisterType(Double, DoubleTag.class);
 		TagTypeRegistry.RegisterType(ByteArray, ByteArrayTag.class);
+		TagTypeRegistry.RegisterType(List, ListTag.class);
+		TagTypeRegistry.RegisterType(Key, CompoundTag.class);
 	}
 
 	public static Type valueOf(byte b) {

@@ -3,13 +3,17 @@ package dev.zontreck.registry.v3;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class ListTag extends Tag implements List<Tag> {
 	private List<Tag> list;
 	private Type subType = Type.End;
-	public ListTag()
-	{
+
+	public ListTag() {
 		list = new ArrayList<>();
 	}
 
@@ -28,10 +32,8 @@ public class ListTag extends Tag implements List<Tag> {
 		dos.writeByte(subType.value);
 		dos.writeInt(size());
 
-		if(size()>0)
-		{
-			for (Tag T :
-				this) {
+		if (size() > 0) {
+			for (Tag T : this) {
 				T.WriteValue(dos);
 			}
 		}
@@ -41,13 +43,11 @@ public class ListTag extends Tag implements List<Tag> {
 	public void ReadValue(DataInputStream dis) throws IOException {
 		Type ltype = Type.valueOf(dis.readByte());
 		int count = dis.readInt();
-		if(count <= 0)
-		{
+		if (count <= 0) {
 			return;
-		}else {
+		} else {
 			subType = ltype;
-			for(int i = 0; i < count; i++)
-			{
+			for (int i = 0; i < count; i++) {
 				Tag inst = TagTypeRegistry.getInstanceOf(subType);
 				inst.ReadValue(dis);
 
@@ -58,117 +58,159 @@ public class ListTag extends Tag implements List<Tag> {
 	}
 
 	@Override
+	public String PrettyPrint(int indent) {
+		String builder = super.PrettyPrint(indent);
+		builder += ": [\n";
+
+		for (Tag T : this) {
+			builder += T.PrettyPrint(indent + 1) + ",\n";
+		}
+
+		builder += MakeIndent(indent) + "]";
+
+		return builder;
+	}
+
+	@Override
 	public int size() {
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		return false;
+		return list.contains(o);
 	}
 
 	@Override
 	public Iterator<Tag> iterator() {
-		return null;
+		return list.iterator();
 	}
 
 	@Override
 	public Object[] toArray() {
-		return new Object[0];
+		return list.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] ts) {
-		return null;
+		return list.toArray(ts);
 	}
 
 	@Override
 	public boolean add(Tag tag) {
+		if (tag.getType() == subType || subType == Type.End) {
+			subType = tag.getType();
+			return list.add(tag);
+
+		}
+
 		return false;
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		return false;
+		boolean result = list.remove(o);
+
+		if (size() <= 0) {
+			subType = Type.End;
+		}
+		return result;
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> collection) {
-		return false;
+		return list.containsAll(collection);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends Tag> collection) {
-		return false;
+		return list.addAll(collection);
 	}
 
 	@Override
 	public boolean addAll(int i, Collection<? extends Tag> collection) {
-		return false;
+		return list.addAll(i, collection);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> collection) {
-		return false;
+		boolean result = list.removeAll(collection);
+		if (size() <= 0) {
+			subType = Type.End;
+		}
+		return result;
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> collection) {
-		return false;
+		return list.retainAll(collection);
 	}
 
 	@Override
 	public void clear() {
-
+		subType = Type.End;
+		list.clear();
 	}
 
 	@Override
 	public Tag get(int i) {
-		return null;
+		return list.get(i);
 	}
 
 	@Override
 	public Tag set(int i, Tag tag) {
+		if (subType == tag.getType() || subType == Type.End) {
+			subType = tag.getType();
+			return list.set(i, tag);
+		}
 		return null;
 	}
 
 	@Override
 	public void add(int i, Tag tag) {
 
+		if (subType == tag.getType() || subType == Type.End) {
+			subType = tag.getType();
+			list.add(i, tag);
+		}
 	}
 
 	@Override
 	public Tag remove(int i) {
-		return null;
+		Tag result = list.remove(i);
+		if (size() <= 0) {
+			subType = Type.End;
+		}
+		return result;
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		return 0;
+		return list.indexOf(o);
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		return 0;
+		return list.lastIndexOf(o);
 	}
 
 	@Override
 	public ListIterator<Tag> listIterator() {
-		return null;
+		return list.listIterator();
 	}
 
 	@Override
 	public ListIterator<Tag> listIterator(int i) {
-		return null;
+		return list.listIterator(i);
 	}
 
 	@Override
 	public List<Tag> subList(int i, int i1) {
-		return null;
+		return list.subList(i, i1);
 	}
 }

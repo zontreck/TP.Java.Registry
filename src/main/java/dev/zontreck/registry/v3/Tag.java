@@ -3,7 +3,6 @@ package dev.zontreck.registry.v3;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 public abstract class Tag {
 	public abstract Type getType();
@@ -105,6 +104,20 @@ public abstract class Tag {
 			return bat;
 		else
 			return new ByteArrayTag();
+	}
+
+	public ListTag asList() {
+		if (this instanceof ListTag lt)
+			return lt;
+		else
+			return new ListTag();
+	}
+
+	public CompoundTag asCompoundTag() {
+		if (this instanceof CompoundTag ct)
+			return ct;
+		else
+			return new CompoundTag();
 	}
 
 }
