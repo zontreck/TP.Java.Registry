@@ -24,6 +24,16 @@ public class BooleanTag extends Tag {
 		return new IntTag((value ? 1 : 0));
 	}
 
+	/**
+	 * Helper constructor to convert back from NBT
+	 * @param val IntTag that is either a 1 or a 0.
+	 */
+	public BooleanTag(IntTag val)
+	{
+		if(val.value == 1) value = true;
+		else value = false;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Boolean;
