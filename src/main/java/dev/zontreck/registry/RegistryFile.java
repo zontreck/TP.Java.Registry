@@ -2,10 +2,7 @@ package dev.zontreck.registry;
 
 import dev.zontreck.registry.v3.Tag;
 
-import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +45,39 @@ public class RegistryFile {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	public static RegistryFile LoadFromFile(String filename) {
+		try {
+			DataInputStream dis = new DataInputStream(new FileInputStream(RegistryIO.getFileFor(filename)));
+
+			RegistryFile file = new RegistryFile();
+			file.RegistryHeader = RegistryIO.ReadHeader(dis);
+
+			if (file.RegistryHeader.Version() >= 3) {
+				// This contains more than one tag!
+				if (file.RegistryHeader instanceof HeaderV3 v3) {
+					for (int i = 0; i < v3.NumOfTags; i++) {
+						String name = dis.readUTF();
+						Tag tag = Tag.Read(dis);
+						tag.ReadValue(dis);
+
+						file.Tags.put(name, tag);
+					}
+				}
+			} else {
+				// This contains one tag only, read it, append it to the map with name 'root'
+				Tag tag = Tag.Read(dis);
+				tag.ReadValue(dis);
+
+				file.Tags.put("root", tag);
+			}
+
+
+			return file;
+		} catch (IOException e) {
+			throw new RuntimeException();
 		}
 	}
 }
