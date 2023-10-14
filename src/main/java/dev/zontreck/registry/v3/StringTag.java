@@ -15,6 +15,11 @@ public class StringTag extends Tag {
 		value = val;
 	}
 
+	public StringTag withValue(String val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.String;

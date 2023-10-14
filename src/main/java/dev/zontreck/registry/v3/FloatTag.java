@@ -15,6 +15,11 @@ public class FloatTag extends Tag {
 		value = val;
 	}
 
+	public FloatTag withValue(float val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Float;

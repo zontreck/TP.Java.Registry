@@ -15,6 +15,11 @@ public class ByteTag extends Tag {
 		value = val;
 	}
 
+	public ByteTag withValue(byte b) {
+		value = b;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Byte;

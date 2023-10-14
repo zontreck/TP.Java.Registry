@@ -23,6 +23,16 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 		}
 	}
 
+	public ByteArrayTag withAddValue(byte val) {
+		add(val);
+		return this;
+	}
+
+	public ByteArrayTag withRemoveValue(byte val) {
+		remove(val);
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.ByteArray;

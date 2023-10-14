@@ -15,6 +15,11 @@ public class LongTag extends Tag {
 		value = val;
 	}
 
+	public LongTag withValue(long val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Long;

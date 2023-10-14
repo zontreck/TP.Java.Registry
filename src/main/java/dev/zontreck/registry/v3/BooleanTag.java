@@ -15,6 +15,15 @@ public class BooleanTag extends Tag {
 		value = val;
 	}
 
+	public BooleanTag withValue(boolean val) {
+		value = val;
+		return this;
+	}
+
+	public IntTag toNBT() {
+		return new IntTag((value ? 1 : 0));
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Boolean;

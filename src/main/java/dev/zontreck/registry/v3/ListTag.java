@@ -10,11 +10,21 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class ListTag extends Tag implements List<Tag> {
-	private List<Tag> list;
+	List<Tag> list;
 	private Type subType = Type.End;
 
 	public ListTag() {
 		list = new ArrayList<>();
+	}
+
+	public ListTag withAddTag(Tag val) {
+		add(val);
+		return this;
+	}
+
+	public ListTag withRemoveTag(Tag val) {
+		remove(val);
+		return this;
 	}
 
 	@Override

@@ -15,6 +15,11 @@ public class DoubleTag extends Tag {
 		value = val;
 	}
 
+	public DoubleTag withValue(double val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Double;

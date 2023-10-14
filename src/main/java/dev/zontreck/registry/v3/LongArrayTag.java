@@ -16,6 +16,16 @@ public class LongArrayTag extends Tag implements List<Long> {
 		list = new ArrayList<>();
 	}
 
+	public LongArrayTag withAddValue(long val) {
+		add(val);
+		return this;
+	}
+
+	public LongArrayTag withRemoveValue(long val) {
+		remove(val);
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.LongArray;
@@ -44,16 +54,16 @@ public class LongArrayTag extends Tag implements List<Long> {
 	}
 
 	@Override
-	public String PrettyPrint(int indent, String name)
-	{
+	public String PrettyPrint(int indent, String name) {
 		String builder = super.PrettyPrint(indent, name);
 		builder += ": [";
 
 		for (int i = 0; i < size(); i++) {
 			builder += get(i);
-			if(i+1>=size()){
+			if (i + 1 >= size()) {
 				builder += "]";
-			}else builder += ",";
+			} else
+				builder += ",";
 		}
 
 		return builder;

@@ -15,6 +15,11 @@ public class IntTag extends Tag {
 		value = val;
 	}
 
+	public IntTag withValue(int val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Int;

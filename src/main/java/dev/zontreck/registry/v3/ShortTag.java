@@ -15,6 +15,11 @@ public class ShortTag extends Tag {
 		value = val;
 	}
 
+	public ShortTag withValue(short val) {
+		value = val;
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.Short;

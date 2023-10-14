@@ -16,6 +16,16 @@ public class IntArrayTag extends Tag implements List<Integer> {
 		list = new ArrayList<>();
 	}
 
+	public IntArrayTag withAddValue(int val) {
+		add(val);
+		return this;
+	}
+
+	public IntArrayTag withRemoveValue(int val) {
+		remove(val);
+		return this;
+	}
+
 	@Override
 	public Type getType() {
 		return Type.IntArray;
