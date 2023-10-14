@@ -198,7 +198,7 @@ public abstract class Entry {
         x.Type = Type;
         x.Description = Description;
         x.EncodeDescription = EncodeDesc;
-        x.setParent(null);
+        x.Parent = null;
 
         if (x.Type == EntryType.Root) {
             x.MyRoot = x.Key();
@@ -212,8 +212,8 @@ public abstract class Entry {
 
     private static Key getRoot(Entry entry) {
         Entry ent = entry;
-        while (ent.getParent() != null) {
-            ent = ent.getParent();
+        while (ent.Parent != null) {
+            ent = ent.Parent;
         }
         return (Key) ent;
     }
@@ -268,8 +268,8 @@ public abstract class Entry {
     public Entry deleteByPath(String path) {
         if (this instanceof Key) {
             Entry pth = getAtPath(path);
-            Key parent = (Key) pth.getParent();
-            parent.Remove(pth);
+            Key parent = (Key) pth.Parent;
+            parent.remove(pth);
             return parent;
         } else {
             return null;

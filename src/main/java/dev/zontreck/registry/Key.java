@@ -3,6 +3,7 @@ package dev.zontreck.registry;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -11,6 +12,8 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import dev.zontreck.eventsbus.Bus;
+import dev.zontreck.registry.events.RegistryEntryAddedEvent;
+import dev.zontreck.registry.events.RegistryEntryRemovedEvent;
 
 public class Key extends Entry implements List<Entry> {
     private List<Entry> _entries = new ArrayList<>();
@@ -61,13 +64,19 @@ public class Key extends Entry implements List<Entry> {
 
     @Override
     public boolean add(Entry entry) {
-        if (Bus.Post(new RegistryEntryAddedEvent(entry, EntryPath + "/" + entry.Name))) {
-            return false;
-        } else {
-            _entries.add(entry);
-            entry.Parent = this;
-            updateRoots();
-            return true;
+        try {
+            if (Bus.Post(new RegistryEntryAddedEvent(entry, getEntryPath() + "/" + entry.Name))) {
+                return false;
+            } else {
+                _entries.add(entry);
+                entry.Parent = this;
+                updateRoots();
+                return true;
+            }
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -78,15 +87,21 @@ public class Key extends Entry implements List<Entry> {
 
     @Override
     public boolean remove(Object o) {
-        if (Bus.Post(new RegistryEntryRemovedEvent((Entry) o, ((Entry) o).EntryPath, this))) {
-            return false;
-        } else {
-            Entry entry = (Entry) o;
-            entry.Parent = null;
-            entry.MyRoot = null;
-            boolean ret = _entries.remove(o);
-            updateRoots();
-            return ret;
+        try {
+            if (Bus.Post(new RegistryEntryRemovedEvent((Entry) o, ((Entry) o).getEntryPath(), this))) {
+                return false;
+            } else {
+                Entry entry = (Entry) o;
+                entry.Parent = null;
+                entry.MyRoot = null;
+                boolean ret = _entries.remove(o);
+                updateRoots();
+                return ret;
+            }
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -149,25 +164,37 @@ public class Key extends Entry implements List<Entry> {
 
     @Override
     public void add(int index, Entry element) {
-        if (Bus.Post(new RegistryEntryAddedEvent(element, EntryPath + "/" + element.Name))) {
-            return;
-        } else {
-            _entries.add(index, element);
-            element.Parent = this;
-            updateRoots();
+        try {
+            if (Bus.Post(new RegistryEntryAddedEvent(element, getEntryPath() + "/" + element.Name))) {
+                return;
+            } else {
+                _entries.add(index, element);
+                element.Parent = this;
+                updateRoots();
+            }
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public Entry remove(int index) {
         Entry item = _entries.get(index);
-        if (Bus.Post(new RegistryEntryRemovedEvent(item, item.EntryPath, this))) {
-            return null;
-        } else {
-            item.Parent = null;
-            item.MyRoot = null;
-            updateRoots();
-            return item;
+        try {
+            if (Bus.Post(new RegistryEntryRemovedEvent(item, item.getEntryPath(), this))) {
+                return null;
+            } else {
+                item.Parent = null;
+                item.MyRoot = null;
+                updateRoots();
+                return item;
+            }
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -218,7 +245,7 @@ public class Key extends Entry implements List<Entry> {
     public void readValue(DataInputStream stream) throws IOException {
         int count = stream.readInt();
         for (int i = 0; i < count; i++) {
-            Entry x = Entry.Read(stream, MyRoot);
+            Entry x = Entry.Read(stream, MyRoot, false, EntryType.Empty, !this.EncodeDescription);
             x.Parent = this;
             x.MyRoot = MyRoot;
             add(x);
@@ -241,7 +268,7 @@ public class Key extends Entry implements List<Entry> {
         String pth = path.substring(path.indexOf('/') + 1);
 
         Key e = this;
-        while (!e.EntryPath.equals(path)) {
+        while (!e.getEntryPath().equals(path)) {
             int inx = pth.indexOf("/");
             String nextEntryName = pth;
             if (inx != -1) {
