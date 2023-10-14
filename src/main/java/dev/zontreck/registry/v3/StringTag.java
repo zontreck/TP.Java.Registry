@@ -4,19 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class StringTag extends Tag
-{
-	private String value;
+public class StringTag extends Tag {
+	public String value;
 
-	public StringTag(){
+	public StringTag() {
 		value = "";
 	}
 
-	public StringTag(String val)
-	{
+	public StringTag(String val) {
 		value = val;
 	}
-
 
 	@Override
 	public String getCanonicalName() {
@@ -24,8 +21,7 @@ public class StringTag extends Tag
 	}
 
 	@Override
-	public String PrettyPrint(int indent)
-	{
+	public String PrettyPrint(int indent) {
 		String builder = super.PrettyPrint(indent);
 		builder += ": \"" + value + "\"";
 

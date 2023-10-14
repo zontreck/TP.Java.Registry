@@ -4,18 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class ByteTag extends Tag
-{
-	private byte value;
-	public ByteTag()
-	{
+public class ByteTag extends Tag {
+	public byte value;
+
+	public ByteTag() {
 		value = 0;
 	}
-	public ByteTag(byte val)
-	{
+
+	public ByteTag(byte val) {
 		value = val;
 	}
-
 
 	@Override
 	public String getCanonicalName() {
@@ -33,10 +31,9 @@ public class ByteTag extends Tag
 	}
 
 	@Override
-	public String PrettyPrint(int indent)
-	{
+	public String PrettyPrint(int indent) {
 		String builder = super.PrettyPrint(indent);
-		builder += ": "+ value;
+		builder += ": " + value;
 
 		return builder;
 	}

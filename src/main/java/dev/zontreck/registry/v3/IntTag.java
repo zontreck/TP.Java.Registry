@@ -4,15 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class IntTag extends Tag
-{
-	private int value;
-	public IntTag()
-	{
+public class IntTag extends Tag {
+	public int value;
+
+	public IntTag() {
 		value = 0;
 	}
-	public IntTag(int val)
-	{
+
+	public IntTag(int val) {
 		value = val;
 	}
 
@@ -32,8 +31,7 @@ public class IntTag extends Tag
 	}
 
 	@Override
-	public String PrettyPrint(int indent)
-	{
+	public String PrettyPrint(int indent) {
 		String builder = super.PrettyPrint(indent);
 		builder += ": " + value;
 

@@ -5,15 +5,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class Tag
-{
+public abstract class Tag {
 	public Type type = Type.End;
 
-	public static String MakeIndent(int indent)
-	{
+	public static String MakeIndent(int indent) {
 		String builder = "";
-		for(int i = 0;i<indent;i++)
-		{
+		for (int i = 0; i < indent; i++) {
 			builder += "    ";
 		}
 
@@ -21,8 +18,8 @@ public abstract class Tag
 	}
 
 	public abstract String getCanonicalName();
-	public String PrettyPrint(int indent)
-	{
+
+	public String PrettyPrint(int indent) {
 		String builder = "";
 		builder += MakeIndent(indent) + getCanonicalName();
 
@@ -40,13 +37,14 @@ public abstract class Tag
 	 * <p>
 	 * Then, initializes an instance of the new tag and returns it.
 	 * <p>
-	 * NOTE: Value is not read by this method. The separate ReadValue method must be called after reading a name, or other data as necessary
+	 * NOTE: Value is not read by this method. The separate ReadValue method must be
+	 * called after reading a name, or other data as necessary
+	 * 
 	 * @param dis
 	 * @return
 	 * @throws IOException
 	 */
-	public static Tag Read(DataInputStream dis) throws IOException
-	{
+	public static Tag Read(DataInputStream dis) throws IOException {
 		Type type = Type.valueOf(dis.readByte());
 		Class<? extends Tag> base = TagTypeRegistry.getByType(type);
 		try {
@@ -65,5 +63,33 @@ public abstract class Tag
 	}
 
 	public abstract void ReadValue(DataInputStream dis) throws IOException;
+
+	public StringTag asString() {
+		if (this instanceof StringTag st)
+			return st;
+		else
+			return new StringTag();
+	}
+
+	public ShortTag asShort() {
+		if (this instanceof ShortTag st)
+			return st;
+		else
+			return new ShortTag();
+	}
+
+	public ByteTag asByte() {
+		if (this instanceof ByteTag bt)
+			return bt;
+		else
+			return new ByteTag();
+	}
+
+	public IntTag asInt() {
+		if (this instanceof IntTag it)
+			return it;
+		else
+			return new IntTag();
+	}
 
 }

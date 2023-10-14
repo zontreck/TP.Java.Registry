@@ -4,16 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class ShortTag extends Tag
-{
-	private short value;
-	public ShortTag()
-	{
+public class ShortTag extends Tag {
+	public short value;
+
+	public ShortTag() {
 		value = 0;
 	}
 
-	public ShortTag(short val)
-	{
+	public ShortTag(short val) {
 		value = val;
 	}
 
@@ -23,8 +21,7 @@ public class ShortTag extends Tag
 	}
 
 	@Override
-	public String PrettyPrint(int indent)
-	{
+	public String PrettyPrint(int indent) {
 		String builder = super.PrettyPrint(indent);
 		builder += ": " + value;
 		return builder;
