@@ -99,4 +99,11 @@ public abstract class Tag {
 			return new LongTag();
 	}
 
+	public FloatTag asFloat() {
+		if (this instanceof FloatTag ft)
+			return ft;
+		else
+			return new FloatTag();
+	}
+
 }
