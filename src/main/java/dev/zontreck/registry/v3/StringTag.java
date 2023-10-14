@@ -26,8 +26,8 @@ public class StringTag extends Tag {
 	}
 
 	@Override
-	public String PrettyPrint(int indent) {
-		String builder = super.PrettyPrint(indent);
+	public String PrettyPrint(int indent, String name) {
+		String builder = super.PrettyPrint(indent, name);
 		builder += ": \"" + value + "\"";
 
 		return builder;
@@ -35,11 +35,13 @@ public class StringTag extends Tag {
 
 	@Override
 	public void WriteValue(DataOutputStream dos) throws IOException {
-		dos.writeUTF(value);
+		dos.writeShort(value.length());
+		dos.write(value.getBytes());
 	}
 
 	@Override
 	public void ReadValue(DataInputStream dis) throws IOException {
-		value = dis.readUTF();
+		short len = dis.readShort();
+		value = new String(dis.readNBytes(len));
 	}
 }

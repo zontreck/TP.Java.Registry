@@ -9,35 +9,28 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ByteArrayTag extends Tag implements List<Byte> {
-	private List<Byte> list;
+public class IntArrayTag extends Tag implements List<Integer> {
+	List<Integer> list;
 
-	public ByteArrayTag() {
+	public IntArrayTag() {
 		list = new ArrayList<>();
-	}
-
-	public ByteArrayTag(byte[] val) {
-		list = new ArrayList<>();
-		for (byte b : val) {
-			list.add(b);
-		}
 	}
 
 	@Override
 	public Type getType() {
-		return Type.ByteArray;
+		return Type.IntArray;
 	}
 
 	@Override
 	public String getCanonicalName() {
-		return "TAG_ByteArray";
+		return "TAG_IntArray";
 	}
 
 	@Override
 	public void WriteValue(DataOutputStream dos) throws IOException {
 		dos.writeInt(size());
-		for (byte b : this) {
-			dos.writeByte(b);
+		for (int i : list) {
+			dos.writeInt(i);
 		}
 	}
 
@@ -45,7 +38,7 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	public void ReadValue(DataInputStream dis) throws IOException {
 		int count = dis.readInt();
 		for (int i = 0; i < count; i++) {
-			list.add(dis.readByte());
+			list.add(dis.readInt());
 		}
 	}
 
@@ -82,7 +75,7 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
-	public Iterator<Byte> iterator() {
+	public Iterator<Integer> iterator() {
 		return list.iterator();
 	}
 
@@ -97,8 +90,8 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
-	public boolean add(Byte aByte) {
-		return list.add(aByte);
+	public boolean add(Integer integer) {
+		return list.add(integer);
 	}
 
 	@Override
@@ -112,12 +105,12 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Byte> collection) {
+	public boolean addAll(Collection<? extends Integer> collection) {
 		return list.addAll(collection);
 	}
 
 	@Override
-	public boolean addAll(int i, Collection<? extends Byte> collection) {
+	public boolean addAll(int i, Collection<? extends Integer> collection) {
 		return list.addAll(i, collection);
 	}
 
@@ -137,22 +130,22 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
-	public Byte get(int i) {
+	public Integer get(int i) {
 		return list.get(i);
 	}
 
 	@Override
-	public Byte set(int i, Byte aByte) {
-		return list.set(i, aByte);
+	public Integer set(int i, Integer integer) {
+		return list.set(i, integer);
 	}
 
 	@Override
-	public void add(int i, Byte aByte) {
-		list.add(i, aByte);
+	public void add(int i, Integer integer) {
+		list.add(i, integer);
 	}
 
 	@Override
-	public Byte remove(int i) {
+	public Integer remove(int i) {
 		return list.remove(i);
 	}
 
@@ -167,17 +160,17 @@ public class ByteArrayTag extends Tag implements List<Byte> {
 	}
 
 	@Override
-	public ListIterator<Byte> listIterator() {
+	public ListIterator<Integer> listIterator() {
 		return list.listIterator();
 	}
 
 	@Override
-	public ListIterator<Byte> listIterator(int i) {
+	public ListIterator<Integer> listIterator(int i) {
 		return list.listIterator(i);
 	}
 
 	@Override
-	public List<Byte> subList(int i, int i1) {
+	public List<Integer> subList(int i, int i1) {
 		return list.subList(i, i1);
 	}
 }

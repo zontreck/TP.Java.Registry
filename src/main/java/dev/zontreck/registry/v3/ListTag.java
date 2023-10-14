@@ -58,12 +58,12 @@ public class ListTag extends Tag implements List<Tag> {
 	}
 
 	@Override
-	public String PrettyPrint(int indent) {
-		String builder = super.PrettyPrint(indent);
+	public String PrettyPrint(int indent, String name) {
+		String builder = super.PrettyPrint(indent, name);
 		builder += ": [\n";
 
 		for (Tag T : this) {
-			builder += T.PrettyPrint(indent + 1) + ",\n";
+			builder += T.PrettyPrint(indent + 1, "") + ",\n";
 		}
 
 		builder += MakeIndent(indent) + "]";

@@ -18,9 +18,11 @@ public abstract class Tag {
 
 	public abstract String getCanonicalName();
 
-	public String PrettyPrint(int indent) {
+	public String PrettyPrint(int indent, String name) {
 		String builder = "";
 		builder += MakeIndent(indent) + getCanonicalName();
+		if(name != "")
+			builder += " [" + name + "]";
 
 		return builder;
 	}
@@ -118,6 +120,13 @@ public abstract class Tag {
 			return ct;
 		else
 			return new CompoundTag();
+	}
+
+	public IntArrayTag asIntArray() {
+		if (this instanceof IntArrayTag iat)
+			return iat;
+		else
+			return new IntArrayTag();
 	}
 
 }

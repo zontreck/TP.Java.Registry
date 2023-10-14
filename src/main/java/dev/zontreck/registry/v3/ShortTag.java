@@ -26,8 +26,8 @@ public class ShortTag extends Tag {
 	}
 
 	@Override
-	public String PrettyPrint(int indent) {
-		String builder = super.PrettyPrint(indent);
+	public String PrettyPrint(int indent, String name) {
+		String builder = super.PrettyPrint(indent, name);
 		builder += ": " + value;
 		return builder;
 	}

@@ -53,6 +53,20 @@ public class CompoundTag extends Tag implements Map<String, Tag> {
 	}
 
 	@Override
+	public String PrettyPrint(int indent, String name) {
+		String builder = super.PrettyPrint(indent, name);
+		builder += ": {\n";
+
+		for (Map.Entry<String, Tag> entry : entrySet()) {
+			builder += entry.getValue().PrettyPrint(indent + 1, entry.getKey()) + ",\n";
+		}
+
+		builder += MakeIndent(indent) + "}";
+
+		return builder;
+	}
+
+	@Override
 	public int size() {
 		return tags.size();
 	}

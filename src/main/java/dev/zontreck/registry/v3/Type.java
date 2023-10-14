@@ -33,6 +33,7 @@ public enum Type {
 		TagTypeRegistry.RegisterType(ByteArray, ByteArrayTag.class);
 		TagTypeRegistry.RegisterType(List, ListTag.class);
 		TagTypeRegistry.RegisterType(Key, CompoundTag.class);
+		TagTypeRegistry.RegisterType(IntArray, IntArrayTag.class);
 	}
 
 	public static Type valueOf(byte b) {
