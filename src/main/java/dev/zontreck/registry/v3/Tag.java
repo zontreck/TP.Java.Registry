@@ -92,4 +92,11 @@ public abstract class Tag {
 			return new IntTag();
 	}
 
+	public LongTag asLong() {
+		if (this instanceof LongTag lt)
+			return lt;
+		else
+			return new LongTag();
+	}
+
 }

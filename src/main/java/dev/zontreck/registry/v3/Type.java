@@ -26,6 +26,7 @@ public enum Type {
 		TagTypeRegistry.RegisterType(Byte, ByteTag.class);
 		TagTypeRegistry.RegisterType(Short, ShortTag.class);
 		TagTypeRegistry.RegisterType(Int, IntTag.class);
+		TagTypeRegistry.RegisterType(Long, LongTag.class);
 	}
 
 	public static Type valueOf(byte b) {
