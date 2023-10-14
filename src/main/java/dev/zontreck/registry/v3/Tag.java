@@ -113,4 +113,11 @@ public abstract class Tag {
 			return new DoubleTag();
 	}
 
+	public ByteArrayTag asByteArray() {
+		if (this instanceof ByteArrayTag bat)
+			return bat;
+		else
+			return new ByteArrayTag();
+	}
+
 }
