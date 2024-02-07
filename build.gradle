@@ -17,9 +17,11 @@ plugins {
 group = "dev.zontreck"
 archivesBaseName = "Registry"
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
     withSourcesJar()
+    withJavadocJar()
 }
 
 def determinePatchVersion = {
@@ -59,13 +61,12 @@ dependencies {
 }
 
 def MAVEN_PASSWORD_PROPERTY = "AriasCreationsMavenPassword"
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-            artifact sourcesJar
             artifact jar
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
     repositories {
@@ -81,6 +82,7 @@ publishing {
         }
     }
 }
+
 
 compileJava.finalizedBy("sourcesJar")
 artifacts {
