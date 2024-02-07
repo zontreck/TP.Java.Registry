@@ -42,23 +42,17 @@ repositories {
     // Use Maven Central for resolving dependencies.
     // mavenCentral()
     maven {
-        url = "https://maven.zontreck.dev/repository/internal"
+        url = "https://maven.zontreck.com/repository/internal"
         name = "Aria's Creations Caches"
     }
 
     maven {
-        url = "https://maven.zontreck.dev/repository/zontreck"
+        url = "https://maven.zontreck.com/repository/zontreck"
         name = "Aria's Creations"
     }
 }
 
 dependencies {
-
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:31.1-jre'
 
     implementation "dev.zontreck:EventsBus:${Bus_API}.${Bus_Patch}"
     api "dev.zontreck:EventsBus:${Bus_API}.${Bus_Patch}:sources"
@@ -69,13 +63,14 @@ def MAVEN_PASSWORD_PROPERTY = "AriasCreationsMavenPassword"
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            from components.java
             artifact sourcesJar
             artifact jar
         }
     }
     repositories {
         maven {
-            url = "https://maven.zontreck.dev/repository/zontreck"
+            url = "https://maven.zontreck.com/repository/zontreck"
             name = "ariascreations"
             if (project.findProperty(MAVEN_PASSWORD_PROPERTY) != null) {
                 credentials {
